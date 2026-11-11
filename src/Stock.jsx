@@ -173,6 +173,9 @@ export default function Stock({ code, name, market }) {
 
   return (
     <main className="sec">
+      <a className="back-link" href="/">
+        ← 목록으로
+      </a>
       <header className="sec-head">
         <div>
           <h1>{name}</h1>
