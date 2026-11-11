@@ -38,18 +38,6 @@ export function AnimatedNumber({ value, format = defaultFormat, duration = 800 }
   );
 }
 
-// 배경 그리드·글로우 (눈 피로를 줄이도록 움직이는 빛은 쓰지 않습니다)
-export function Backdrop() {
-  return (
-    <div className="fx" aria-hidden="true">
-      <div className="fx-grid" />
-      <div className="fx-orb a" />
-      <div className="fx-orb b" />
-      <div className="fx-orb c" />
-    </div>
-  );
-}
-
 const sign = (n) => (n > 0 ? "▲" : n < 0 ? "▼" : "–");
 const dir = (n) => (n > 0 ? "up" : n < 0 ? "down" : "flat");
 

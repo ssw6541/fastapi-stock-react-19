@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { slugOf } from "./stocks.js";
 import { useMarket } from "./useMarket.js";
-import { AnimatedNumber, Backdrop, Ticker } from "./ui.jsx";
+import { AnimatedNumber, Ticker } from "./ui.jsx";
 import Chart from "./Chart.jsx";
 import "./Market.css";
 
@@ -396,7 +396,6 @@ export default function Market() {
 
   return (
     <>
-      <Backdrop />
       <div className="page">
         <Ticker stocks={data?.stocks} />
         <header className="topbar">

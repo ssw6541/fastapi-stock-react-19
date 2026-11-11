@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMarket } from "./useMarket.js";
-import { AnimatedNumber, Backdrop, Ticker } from "./ui.jsx";
+import { AnimatedNumber, Ticker } from "./ui.jsx";
 import Chart from "./Chart.jsx";
 import { fmt, pct, dirOf, arrow } from "./format.js";
 import "./Stock.css";
@@ -38,7 +38,6 @@ export default function Stock({ code, name, market }) {
 
   const shell = (children) => (
     <>
-      <Backdrop />
       <div className="page">
         <Ticker stocks={live?.stocks} />
         {children}
