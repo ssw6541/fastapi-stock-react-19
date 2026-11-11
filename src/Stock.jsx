@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useMarket } from "./useMarket.js";
+import { AnimatedNumber, Backdrop, Ticker } from "./ui.jsx";
 import "./Stock.css";
 
 const fmt = (n) => n.toLocaleString("ko-KR");
@@ -77,6 +79,8 @@ function Chart({ rows }) {
         <polygon points={area} fill="url(#fill)" />
         <polyline
           points={line}
+          pathLength="1"
+          className="draw"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
@@ -111,7 +115,7 @@ function Chart({ rows }) {
               cy={y(h.close)}
               r="5"
               fill="currentColor"
-              stroke="var(--card)"
+              stroke="#0a0c1f"
               strokeWidth="2"
             />
           </g>
@@ -143,6 +147,11 @@ function Stat({ label, value, sub, tone }) {
 export default function Stock({ code, name, market }) {
   const [rows, setRows] = useState(null);
   const [error, setError] = useState(null);
+  const { data: live } = useMarket();
+
+  useEffect(() => {
+    document.title = `${name} — 마켓노트`;
+  }, [name]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -156,8 +165,18 @@ export default function Stock({ code, name, market }) {
     return () => ctrl.abort();
   }, [code]);
 
-  if (error) return <p className="sec-msg">불러오기 실패: {error}</p>;
-  if (!rows) return <p className="sec-msg">불러오는 중…</p>;
+  const shell = (children) => (
+    <>
+      <Backdrop />
+      <div className="page">
+        <Ticker stocks={live?.stocks} />
+        {children}
+      </div>
+    </>
+  );
+
+  if (error) return shell(<p className="sec-msg">불러오기 실패: {error}</p>);
+  if (!rows) return shell(<p className="sec-msg">불러오는 중…</p>);
 
   const last = rows[rows.length - 1];
   const prev = rows[rows.length - 2];
@@ -171,7 +190,7 @@ export default function Stock({ code, name, market }) {
     rows.reduce((s, r) => s + r.volume, 0) / rows.length,
   );
 
-  return (
+  return shell(
     <main className="sec">
       <a className="back-link" href="/">
         ← 목록으로
@@ -185,7 +204,7 @@ export default function Stock({ code, name, market }) {
         </div>
         <div className={`sec-price ${dirOf(diff)}`}>
           <strong>
-            {fmt(last.close)}
+            <AnimatedNumber value={last.close} />
             <em>원</em>
           </strong>
           <span>
@@ -255,6 +274,6 @@ export default function Stock({ code, name, market }) {
           </table>
         </div>
       </section>
-    </main>
+    </main>,
   );
 }

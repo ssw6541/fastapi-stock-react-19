@@ -1,0 +1,234 @@
+/* 공통 테마: 글래스모피즘 다크 */
+:root {
+  --bg: #060814;
+  --ink: #e9edff;
+  --muted: #8a93bb;
+  --line: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-hi: rgba(255, 255, 255, 0.09);
+  --cyan: #4df3ff;
+  --violet: #9b7bff;
+  --up: #ff5d73;
+  --down: #5ea2ff;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --shadow: 0 10px 40px rgba(2, 4, 20, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px "Noto Sans KR", "DM Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+a {
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+::selection {
+  background: rgba(77, 243, 255, 0.3);
+}
+
+.up {
+  color: var(--up);
+}
+.down {
+  color: var(--down);
+}
+.flat {
+  color: var(--muted);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* 배경 효과 */
+.fx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fx-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(120, 140, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 140, 255, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 20%, #000 20%, transparent 78%);
+}
+.fx-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+.fx-orb.a {
+  width: 520px;
+  height: 520px;
+  left: -140px;
+  top: -120px;
+  background: #5a3df0;
+}
+.fx-orb.b {
+  width: 460px;
+  height: 460px;
+  right: -120px;
+  top: 220px;
+  background: #0aa5c8;
+  animation-delay: -8s;
+}
+.fx-orb.c {
+  width: 380px;
+  height: 380px;
+  left: 35%;
+  bottom: -160px;
+  background: #b0378f;
+  opacity: 0.32;
+  animation-delay: -14s;
+}
+.fx-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 243, 255, 0.13), transparent 65%);
+  transition: transform 0.12s linear;
+  will-change: transform;
+}
+@keyframes drift {
+  to {
+    transform: translate(60px, 40px) scale(1.12);
+  }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+}
+
+/* 글래스 패널 */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* 상단 티커 */
+.ticker {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: rgba(6, 8, 20, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 70s linear infinite;
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+.tick {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 9px 22px;
+  text-decoration: none;
+  white-space: nowrap;
+  border-right: 1px solid var(--line);
+  transition: background 0.2s;
+}
+.tick:hover {
+  background: var(--glass-hi);
+}
+.tick b {
+  font-weight: 600;
+  color: var(--ink);
+}
+.tick-empty {
+  padding: 9px 22px;
+  color: var(--muted);
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* 숫자 애니메이션 */
+.num {
+  font-variant-numeric: tabular-nums;
+  border-radius: 4px;
+}
+.flash-up {
+  animation: flashUp 1.1s ease-out;
+}
+.flash-down {
+  animation: flashDown 1.1s ease-out;
+}
+@keyframes flashUp {
+  0% {
+    background: rgba(255, 93, 115, 0.4);
+    text-shadow: 0 0 16px var(--up);
+  }
+  100% {
+    background: transparent;
+    text-shadow: none;
+  }
+}
+@keyframes flashDown {
+  0% {
+    background: rgba(94, 162, 255, 0.4);
+    text-shadow: 0 0 16px var(--down);
+  }
+  100% {
+    background: transparent;
+    text-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
