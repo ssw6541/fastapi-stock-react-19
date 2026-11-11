@@ -38,24 +38,14 @@ export function AnimatedNumber({ value, format = defaultFormat, duration = 800 }
   );
 }
 
-// 배경 그리드·글로우, 마우스를 따라다니는 빛
+// 배경 그리드·글로우 (눈 피로를 줄이도록 움직이는 빛은 쓰지 않습니다)
 export function Backdrop() {
-  const cursor = useRef(null);
-  useEffect(() => {
-    const onMove = (e) => {
-      if (cursor.current)
-        cursor.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-    };
-    window.addEventListener("pointermove", onMove);
-    return () => window.removeEventListener("pointermove", onMove);
-  }, []);
   return (
     <div className="fx" aria-hidden="true">
       <div className="fx-grid" />
       <div className="fx-orb a" />
       <div className="fx-orb b" />
       <div className="fx-orb c" />
-      <div className="fx-cursor" ref={cursor} />
     </div>
   );
 }

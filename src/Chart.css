@@ -15,7 +15,7 @@
   color: var(--down);
 }
 .chart polyline {
-  filter: drop-shadow(0 0 7px currentColor);
+  filter: none;
 }
 .chart .draw {
   stroke-dasharray: 1;
@@ -47,12 +47,12 @@
   font-size: 11px;
 }
 .chart .cross {
-  stroke: var(--cyan);
+  stroke: var(--amber);
   stroke-opacity: 0.7;
   stroke-dasharray: 3 3;
 }
 .chart circle {
-  filter: drop-shadow(0 0 8px currentColor);
+  filter: none;
 }
 .chart .vol {
   transition: opacity 0.15s;
@@ -71,13 +71,13 @@
   top: 0;
   transform: translateX(-50%);
   pointer-events: none;
-  background: rgba(14, 17, 40, 0.85);
-  border: 1px solid rgba(77, 243, 255, 0.4);
+  background: rgba(30, 22, 14, 0.85);
+  border: 1px solid rgba(255, 176, 64, 0.4);
   backdrop-filter: blur(12px);
-  box-shadow: 0 0 24px rgba(77, 243, 255, 0.18);
+  box-shadow: 0 0 24px rgba(255, 176, 64, 0.18);
   color: var(--ink);
   padding: 7px 11px;
-  border-radius: 10px;
+  border-radius: 6px;
   font-family: var(--mono);
   font-size: 0.76rem;
   display: flex;
