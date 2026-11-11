@@ -9,13 +9,13 @@
   cursor: crosshair;
 }
 .chart.up {
-  color: var(--up);
+  color: #ff789b;
 }
 .chart.down {
-  color: var(--down);
+  color: #61baff;
 }
 .chart polyline {
-  filter: none;
+  filter: drop-shadow(0 0 5px currentColor);
 }
 .chart .draw {
   stroke-dasharray: 1;
@@ -58,10 +58,10 @@
   transition: opacity 0.15s;
 }
 .chart .vol.up {
-  fill: var(--up);
+  fill: #ff789b;
 }
 .chart .vol.down {
-  fill: var(--down);
+  fill: #61baff;
 }
 .chart .vol.flat {
   fill: var(--muted);
@@ -71,8 +71,8 @@
   top: 0;
   transform: translateX(-50%);
   pointer-events: none;
-  background: #241a11;
-  border: 1px solid rgba(255, 176, 64, 0.4);
+  background: #111621;
+  border: 1px solid rgba(165, 234, 212, 0.4);
   box-shadow: none;
   color: var(--ink);
   padding: 7px 11px;
@@ -92,5 +92,5 @@
 /* 선 아래 영역은 그라데이션 대신 단색 반투명으로 */
 .chart polygon {
   fill: currentColor;
-  fill-opacity: 0.1;
+  fill-opacity: 0.14;
 }

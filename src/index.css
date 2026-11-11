@@ -1,17 +1,17 @@
 /* 공통 테마: 글래스모피즘 다크 */
 :root {
-  --bg: #17120d;
-  --ink: #e9dcc2;
-  --muted: #a8957a;
-  --line: rgba(233, 220, 194, 0.14);
-  --glass: rgba(233, 220, 194, 0.045);
-  --glass-hi: rgba(233, 220, 194, 0.09);
-  --amber: #ffb040;
-  --rust: #e08a5c;
-  --up: #e8704f;
-  --down: #6fa8a0;
+  --bg: #080a10;
+  --ink: #e6edf5;
+  --muted: #98a8bd;
+  --line: rgba(181, 205, 236, 0.14);
+  --glass: rgba(181, 205, 236, 0.045);
+  --glass-hi: rgba(181, 205, 236, 0.09);
+  --amber: #a5ead4;
+  --rust: #a7a9f5;
+  --up: #f29a9e;
+  --down: #8fbde0;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
-  --shadow: 0 6px 24px rgba(8, 5, 2, 0.45);
+  --shadow: 0 6px 24px rgba(2, 5, 12, 0.45);
 }
 
 * {
@@ -22,7 +22,7 @@ html {
 }
 body {
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(ellipse at 80% 0%, rgba(100, 113, 205, 0.12), transparent 35%), var(--bg);
   color: var(--ink);
   font: 14px "Noto Sans KR", "DM Sans", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,7 +41,7 @@ a {
   outline-offset: 3px;
 }
 ::selection {
-  background: rgba(255, 176, 64, 0.3);
+  background: rgba(165, 234, 212, 0.3);
 }
 
 .up {
@@ -71,7 +71,7 @@ a {
   background: var(--glass);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: var(--shadow), inset 0 1px 0 rgba(233, 220, 194, 0.08);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(181, 205, 236, 0.08);
 }
 
 /* 상단 티커 */
@@ -81,7 +81,7 @@ a {
   z-index: 20;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  background: #17120d;
+  background: #080a10;
   font-family: var(--mono);
   font-size: 12px;
 }
@@ -133,7 +133,7 @@ a {
 }
 @keyframes flashUp {
   0% {
-    background: rgba(232, 112, 79, 0.2);
+    background: rgba(242, 154, 158, 0.2);
     
   }
   100% {
@@ -142,7 +142,7 @@ a {
 }
 @keyframes flashDown {
   0% {
-    background: rgba(111, 168, 160, 0.2);
+    background: rgba(143, 189, 224, 0.2);
     
   }
   100% {

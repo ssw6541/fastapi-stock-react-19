@@ -425,9 +425,9 @@ export default function Market() {
                 <span className="eyebrow-dot" /> YOUR MARKET, AT A GLANCE
               </div>
               <h1>
-                오늘의 시장을
-                <br />
-                <span>내 방식대로.</span>
+                오늘의<br />
+                시장을<br />
+                <span>내<br />방식대로</span>
               </h1>
               <p>
                 흩어진 숫자 대신, 궁금한 흐름부터.
