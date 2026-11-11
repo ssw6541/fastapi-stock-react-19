@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { slugOf } from "./stocks.js";
 import "./Market.css";
 
 const number = new Intl.NumberFormat("ko-KR");
@@ -208,6 +209,11 @@ function Detail({ item, favorite, onFavorite }) {
           <b>{item.market}</b>
         </div>
       </div>
+      {slugOf(item.code) && (
+        <a className="detail-link detail-more" href={`/${slugOf(item.code)}`}>
+          자세히 보기 <span>→</span>
+        </a>
+      )}
       <a
         className="detail-link"
         href={`https://finance.naver.com/item/main.naver?code=${encodeURIComponent(item.code)}`}

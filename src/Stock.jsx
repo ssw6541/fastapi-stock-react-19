@@ -19,7 +19,10 @@ function Chart({ rows }) {
   const closes = rows.map((r) => r.close);
   const min = Math.min(...closes),
     max = Math.max(...closes);
-  const STEP = 20000; // y축 눈금 간격
+  // y축 눈금 간격: 가격대에 맞춰 눈금이 5개 안팎이 되도록 1·2·5 단위로 정합니다.
+  const raw = Math.max(max - min, 1) / 4;
+  const mag = 10 ** Math.floor(Math.log10(raw));
+  const STEP = ([1, 2, 5, 10].find((m) => m * mag >= raw) ?? 10) * mag;
   const lo = Math.floor(min / STEP) * STEP;
   const hi = Math.max(Math.ceil(max / STEP) * STEP, lo + STEP);
   const ticks = Array.from(
