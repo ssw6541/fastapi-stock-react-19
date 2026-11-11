@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { slugOf } from "./stocks.js";
 import { useMarket } from "./useMarket.js";
 import { AnimatedNumber, Backdrop, Ticker } from "./ui.jsx";
+import Chart from "./Chart.jsx";
 import "./Market.css";
 
 const number = new Intl.NumberFormat("ko-KR");
@@ -234,6 +235,87 @@ function Detail({ item, favorite, onFavorite }) {
   );
 }
 
+function IndexChartBody({ code }) {
+  const [rows, setRows] = useState(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch(`/api/history/${code}`, { signal: ctrl.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((j) => setRows(j.data))
+      .catch((e) => e.name !== "AbortError" && setError(true));
+    return () => ctrl.abort();
+  }, [code]);
+
+  if (error) return <p className="chart-msg">차트를 불러오지 못했습니다.</p>;
+  if (!rows) return <p className="chart-msg">차트를 불러오는 중…</p>;
+
+  const first = rows[0];
+  const last = rows[rows.length - 1];
+  const periodRate = ((last.close - first.close) / first.close) * 100;
+  const hi = Math.max(...rows.map((r) => r.high));
+  const lo = Math.min(...rows.map((r) => r.low));
+  return (
+    <>
+      <div className="chart-stats">
+        <div>
+          <span>30일 수익률</span>
+          <b className={direction(periodRate)}>{signed(periodRate, true)}%</b>
+        </div>
+        <div>
+          <span>30일 최고</span>
+          <b>{decimal.format(hi)}</b>
+        </div>
+        <div>
+          <span>30일 최저</span>
+          <b>{decimal.format(lo)}</b>
+        </div>
+        <div>
+          <span>기준일</span>
+          <b>{last.date}</b>
+        </div>
+      </div>
+      <Chart rows={rows} unit="" digits={2} />
+    </>
+  );
+}
+
+function IndexChart() {
+  const [code, setCode] = useState("KOSPI");
+  return (
+    <section className="index-chart glass" aria-label="지수 30일 추이">
+      <div className="index-chart-head">
+        <div>
+          <div className="kicker">
+            <span>↗</span> 30 DAYS TREND
+          </div>
+          <h3>지수 30일 추이</h3>
+        </div>
+        <div className="tabs" role="group" aria-label="지수 선택">
+          {[
+            ["KOSPI", "코스피"],
+            ["KOSDAQ", "코스닥"],
+          ].map(([key, label]) => (
+            <button
+              key={key}
+              className={`tab ${code === key ? "active" : ""}`}
+              aria-pressed={code === key}
+              onClick={() => setCode(key)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <IndexChartBody key={code} code={code} />
+    </section>
+  );
+}
+
 export default function Market() {
   const { data, failed, loading, refresh } = useMarket();
   const [market, setMarket] = useState("all");
@@ -425,6 +507,7 @@ export default function Market() {
                 </div>
               )}
             </div>
+            <IndexChart />
           </section>
 
           <section className="watchlist" id="watchlist" aria-labelledby="stocks-title">

@@ -1224,3 +1224,65 @@ dialog::backdrop {
     display: block;
   }
 }
+
+/* 지수 30일 차트 */
+.index-chart {
+  margin-top: 14px;
+  padding: 22px 24px 12px;
+}
+.index-chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.index-chart-head h3 {
+  margin: 8px 0 0;
+  font-size: 18px;
+  letter-spacing: -0.6px;
+}
+.index-chart .tabs .tab {
+  padding: 10px 0;
+}
+.chart-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 18px 0 6px;
+}
+.chart-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.chart-stats span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.chart-stats b {
+  font-family: var(--mono);
+  font-size: 15px;
+}
+.chart-msg {
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--mono);
+  padding: 70px 0;
+}
+@media (max-width: 760px) {
+  .index-chart {
+    padding: 18px 14px 8px;
+  }
+  .chart-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.index-chart .chart-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+}
